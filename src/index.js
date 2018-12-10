@@ -12,12 +12,10 @@ export const orderTotal = (arrayOfOrders) => {
     const shipping = arrayOfOrders.find(item => item.shipping)
   
     return (
-      shipping ?
+      shipping &&
         preTotal >= (shipping.freeShipping + shipping.price) ?
           preTotal - shipping.price
           :
           preTotal
-        :
-        preTotal
     )
   }
