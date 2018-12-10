@@ -1,5 +1,7 @@
 import { orderTotal } from './index'
 
+import { fetchOrdersAndCalculateTotal } from './index'
+
 
 describe('Sum without quantity', () => {
     const orders = [
@@ -64,40 +66,48 @@ describe('Sum WITH quantity', () => {
 
 describe('Sum with shipping', () => {
     const orders = [
-      {
-        name: 'Lager',
-        price: 10,
-        quantity: 100
-      },
-      {
-        shipping: true,
-        price: 25,
-        freeShipping: 200
-      }
+        {
+            name: 'Lager',
+            price: 10,
+            quantity: 100
+        },
+        {
+            shipping: true,
+            price: 25,
+            freeShipping: 200
+        }
     ]
-  
+
     const orders2 = [
-      {
-        name: 'Lager',
-        price: 10,
-        quantity: 2
-      },
-      {
-        shipping: true,
-        price: 25,
-        freeShipping: 200
-      }
+        {
+            name: 'Lager',
+            price: 10,
+            quantity: 2
+        },
+        {
+            shipping: true,
+            price: 25,
+            freeShipping: 200
+        }
     ]
-  
+
     test('Free shipping >= 200', () => {
-      expect(
-        orderTotal(orders)
-      ).toBe(1000)
+        expect(
+            orderTotal(orders)
+        ).toBe(1000)
     })
-  
+
     test('Paid shipping <= 200', () => {
-      expect(
-        orderTotal(orders2)
-      ).toBe(45)
+        expect(
+            orderTotal(orders2)
+        ).toBe(45)
     })
-  })
+})
+
+describe('Fetching data to calculate sum', () => {
+    test('Fetching data without quantity', () => {
+        return (fetchOrdersAndCalculateTotal()
+            .then(total => expect(total).toBe(25))
+        )
+    })
+})
