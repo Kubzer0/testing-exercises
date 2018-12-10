@@ -2,6 +2,7 @@ import { orderTotal } from './index'
 
 import { fetchOrdersAndCalculateTotal } from './index'
 
+import { mockedFetch } from './mockedFetch'
 
 describe('Sum without quantity', () => {
     const orders = [
@@ -105,9 +106,11 @@ describe('Sum with shipping', () => {
 })
 
 describe('Fetching data to calculate sum', () => {
+    fetch = mockedFetch
     test('Fetching data without quantity', () => {
         return (fetchOrdersAndCalculateTotal()
             .then(total => expect(total).toBe(25))
         )
     })
 })
+
